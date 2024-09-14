@@ -1,0 +1,118 @@
+.App {
+  text-align: center;
+  background-color: #8c9eff; /* Dark background */
+  color: #fff; /* White text */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-gap: 10px;
+  background-color: #202229; /* Dark background for the calculator */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px; /* This sets a max width for the entire calculator */
+  width: 100%; /* Ensures the calculator fills the screen properly */
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.display {
+  grid-column: span 4;
+  background-color: #202229; 
+  color: white;
+  font-size: 2.5rem;
+  padding: 20px;
+  text-align: right;
+  border-radius: 10px;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+button {
+  padding: 20px;
+  font-size: 1.5rem;
+  background-color: #444; /* Dark buttons */
+  color: #fff; /* White text */
+  border: 1px solid #666; /* Slight border for contrast */
+  border-radius: 5px; /* Rounded buttons */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+button:hover {
+  background-color: #555; /* Slightly lighter on hover */
+}
+
+
+.subtract, .add, .divide, .multiply {
+  background-color:#444;
+  color: #e87575;
+}
+
+.zero {
+  grid-column: span 2; /* Spans two columns */
+}
+
+.equals {
+  grid-row: span 2; /* Spans two rows */
+  background-color:#e87575;
+  color: white;
+  align-self: stretch; /* Ensures it spans vertically across two rows */
+}
+
+.clear {
+  grid-column: span 2; /* Span two columns for the clear button */
+}
+
+
+.dark-mode .calculator-grid {
+  background-color: #222;
+}
+
+.light-mode .App{
+  background-color:#eeeeee ;
+}
+.light-mode .calculator-grid {
+  background-color: #eeeeee;
+}
+
+.light-mode button {
+  background-color: #f1f1f1;
+  color: black;
+  border-color: #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for buttons */
+}
+
+.light-mode button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}
+
+.light-mode button:focus {
+  background-color: #e0e0e0;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus outline shadow */
+  outline: none; /* Remove default browser outline */
+}
+
+
+
+.light-mode .display {
+  background-color: #eeeeee;
+  color: black;
+}
+@media (max-width: 600px) {
+  .display {
+    font-size: 2rem;
+    padding: 15px;
+  }
+
+  button {
+    padding: 15px;
+    font-size: 1.2rem;
+  }
+}
