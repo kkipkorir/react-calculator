@@ -1,11 +1,11 @@
 import React from "react";
 
-const MyDisplay = ()=>{
+const MyDisplay = ({result,input})=>{
 
     return(
         <div className="display" id="display">
-        <div className="input-display">You are{ /*  I am kip */}</div>
-        <div className="input">I am</div>
+        <div className="input-display">{result}{ /*  I am kip */}</div>
+        <div className="input">{input}</div>
         </div>
     )
 }

@@ -41,7 +41,7 @@ button {
   border: 1px solid #666; /* Slight border for contrast */
   border-radius: 5px; /* Rounded buttons */
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+  transition: background-color 0.1s ease; /* Smooth hover effect */
 }
 
 button:hover {
@@ -58,7 +58,7 @@ button:hover {
   grid-column: span 2; /* Spans two columns */
 }
 
-.equals {
+.equals, .light-mode .equals {
   grid-row: span 2; /* Spans two rows */
   background-color:#e87575;
   color: white;
@@ -99,6 +99,10 @@ button:hover {
   outline: none; /* Remove default browser outline */
 }
 
+.light-mode .subtract,.light-mode .add,.light-mode .divide,.light-mode .multiply {
+  background-color:#f1f1f1;
+  color: #e87575;
+}
 
 
 .light-mode .display {
