@@ -30,9 +30,21 @@
   padding: 20px;
   text-align: right;
   border-radius: 10px;
+  overflow: hidden; 
+  height: 80px; 
+  font-family: 'Digital-7 Mono', monospace;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
-
+.input-display {
+  font-size: 2.5rem;
+  color: orange;
+  white-space: nowrap; 
+  overflow-x: auto; 
+}
+.input{
+  font-size: 2.5rem;
+  color: whitesmoke;
+}
 button {
   padding: 20px;
   font-size: 1.5rem;

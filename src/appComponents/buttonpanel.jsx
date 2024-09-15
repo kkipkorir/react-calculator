@@ -4,30 +4,32 @@ import MyDisplay from "./display";
 import ThemeToggle from "./theme";
 import { useState } from "react";
 
-const ButtonPanel = ({theme,toggleTheme}) => {
-const [input,setInput]=useState('');
-const [result,setResult]=useState('');
-const [isResult,setIsResult]=useState(false);
+const ButtonPanel = ({ theme, toggleTheme }) => {
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
+  const [isResult, setIsResult] = useState(false);
+  const [displayed, setIsDisplayed] = useState('')
+  const MAXINPUTLEGNTH = 19;
 
-const evaluate = (theInput)=>{
+  const evaluate = (theInput) => {
     /*evaluates*/
     try {
-        // Replace symbols with their JavaScript equivalents
-        const sanitizedInput = theInput.replace(/÷/g, "/").replace(/×/g, "*");
-        
-        // Use eval to evaluate the expression
-        const evalResult = eval(sanitizedInput);
-        
-        // If the result is a float with too many decimals, round it
-        return evalResult % 1 !== 0 ? evalResult.toFixed(4) : evalResult;
-      } catch (error) {
-        return "Error";
-      }
-}
+      // Replace symbols with their JavaScript equivalents
+      const sanitizedInput = theInput.replace(/÷/g, "/").replace(/×/g, "*");
 
-const handleButtonClick = (value)=>{
+      // Use eval to evaluate the expression
+      const evalResult = eval(sanitizedInput);
+
+      // If the result is a float with too many decimals, round it
+      return evalResult % 1 !== 0 ? evalResult.toFixed(4) : evalResult;
+    } catch (error) {
+      return "Error";
+    }
+  }
+
+  const handleButtonClick = (value) => {
     const operators = ['+', '-', '×', '÷'];
-    let resultValue ='';
+
 
     // Prevent more than two consecutive operators
     if (operators.includes(value)) {
@@ -39,23 +41,30 @@ const handleButtonClick = (value)=>{
       }
     }
 
+    // input doesnt exceed calc's display
+    if (input.length >= MAXINPUTLEGNTH && value !== "AC" && value !== '=') {
+      setIsDisplayed('EXCESS');
+      return;
+    }
+
     // If equals button is clicked
     if (value === "=") {
       try {
-        resultValue = evaluate(input);
+        const resultValue = evaluate(input);
         setResult(`${input}=${resultValue}`);
         setInput(String(resultValue)); // Convert result to string
         setIsResult(true); // Mark that the result is shown
       } catch (error) {
         setResult("Error");
       }
-    } 
+    }
     // If AC button is clicked
     else if (value === "AC") {
       setResult("");
       setInput("");
+      setIsDisplayed('0')
       setIsResult(false); // Reset the flag
-    } 
+    }
     // For other button clicks
     else {
       // If result was just shown, start a new input
@@ -64,39 +73,41 @@ const handleButtonClick = (value)=>{
         setResult(value); // Display the new input
         setIsResult(false); // Reset the flag
       } else {
-        if(isResult){
-            setInput((prevState) => prevState + value); // Append value to the input
-        setResult((prevState) => prevState + value);
+        if (isResult) {
+          setInput(input); // Append value to the input
+          setResult(input);
+          setIsResult(false);
         }
+        setIsDisplayed(() => value);
         setInput((prevState) => prevState + value); // Append value to the input
         setResult((prevState) => prevState + value); // Append to the result
       }
     }
-}
+  }
 
-    return (
-        <div className={`calculator-grid ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
-            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-            <MyDisplay result={result} input={input} />
-            <MyButton iD="clear" kkey="AC" theme={theme} onClicked={handleButtonClick} />
-            <MyButton iD="divide" kkey="÷" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="multiply" kkey="×" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="seven" kkey="7" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="eight" kkey="8" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="nine" kkey="9" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="subtract" kkey="-" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="four" kkey="4" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="five" kkey="5" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="six" kkey="6" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="add" kkey="+" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="one" kkey="1" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="two" kkey="2" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="three" kkey="3" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="equals" kkey="=" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="zero" kkey="0" theme={theme} onClicked={handleButtonClick}/>
-            <MyButton iD="decimal" kkey="." theme={theme} onClicked={handleButtonClick}/>
-        </div>
-    )
+  return (
+    <div className={`calculator-grid ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      <MyDisplay result={result} input={isResult ? input : displayed} />
+      <MyButton iD="clear" kkey="AC" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="divide" kkey="÷" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="multiply" kkey="×" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="seven" kkey="7" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="eight" kkey="8" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="nine" kkey="9" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="subtract" kkey="-" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="four" kkey="4" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="five" kkey="5" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="six" kkey="6" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="add" kkey="+" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="one" kkey="1" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="two" kkey="2" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="three" kkey="3" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="equals" kkey="=" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="zero" kkey="0" theme={theme} onClicked={handleButtonClick} />
+      <MyButton iD="decimal" kkey="." theme={theme} onClicked={handleButtonClick} />
+    </div>
+  )
 }
 
 export default ButtonPanel
