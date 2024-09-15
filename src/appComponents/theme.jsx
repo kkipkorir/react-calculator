@@ -13,7 +13,7 @@ const ThemeToggle = ({ theme, toggleTheme }) => {
     }
     return (
         <div className="theme-toggle" style={styleToggleTheme}>
-            <p style={{color:(theme==='dark'?'#fff':'#202229')}}>Kkips Calc</p>
+            <p style={{color:(theme==='dark'?'#fff':'#202229')}}><a target='blank' href="https://www.linkedin.com/in/kelvin-kipkorir-a89a651b8" style={{ textDecoration: 'none', color: 'wheat' }}>Kkips Calc</a></p>
             {/* Clicking on the icon will trigger the toggleTheme function */}
             <img
                 src={theme === 'dark' ? lightModeIcon : darkModeIcon}

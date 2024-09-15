@@ -9,7 +9,7 @@ const ButtonPanel = ({ theme, toggleTheme }) => {
   const [result, setResult] = useState('');
   const [isResult, setIsResult] = useState(false);
   const [displayed, setIsDisplayed] = useState('')
-  const MAXINPUTLEGNTH = 19;
+  // const MAXINPUTLEGNTH = 19;
 
   const evaluate = (theInput) => {
     /*evaluates*/
@@ -41,11 +41,11 @@ const ButtonPanel = ({ theme, toggleTheme }) => {
       }
     }
 
-    // input doesnt exceed calc's display
-    if (input.length >= MAXINPUTLEGNTH && value !== "AC" && value !== '=') {
-      setIsDisplayed('EXCESS');
-      return;
-    }
+    // // input doesnt exceed calc's display
+    // if (input.length >= MAXINPUTLEGNTH && value !== "AC" && value !== '=') {
+    //   setIsDisplayed('DIGITAL LIMIT MET');
+    //   return;
+    // }
 
     // If equals button is clicked
     if (value === "=") {
@@ -88,7 +88,7 @@ const ButtonPanel = ({ theme, toggleTheme }) => {
   return (
     <div className={`calculator-grid ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-      <MyDisplay result={result} input={isResult ? input : displayed} />
+      <MyDisplay result={result} input={isResult ? input : displayed} theme={theme}/>
       <MyButton iD="clear" kkey="AC" theme={theme} onClicked={handleButtonClick} />
       <MyButton iD="divide" kkey="÷" theme={theme} onClicked={handleButtonClick} />
       <MyButton iD="multiply" kkey="×" theme={theme} onClicked={handleButtonClick} />
